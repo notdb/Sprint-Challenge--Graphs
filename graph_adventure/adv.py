@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-from room-graphs import roomGraph0
+from roomgraphs import roomGraph0
 
 import random
 
@@ -25,11 +25,11 @@ for move in traversalPath:
     player.travel(move)
     visited_rooms.add(player.currentRoom)
 
-if len(visited_rooms) == len(roomGraph):
+if len(visited_rooms) == len(roomGraph0):
     print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(roomGraph) - len(visited_rooms)} unvisited rooms")
+    print(f"{len(roomGraph0) - len(visited_rooms)} unvisited rooms")
 
 
 
