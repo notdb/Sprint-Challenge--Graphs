@@ -13,7 +13,7 @@ world.loadGraph(roomGraph2)
 #world.printRooms()
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
-# start at room 0, pick a random direction, go to that room, add step taken to list, 
+# start at room 0, add room to dictionary with available exits pick a random direction, go to that room, add step taken to list, 
 player = Player("Name", world.startingRoom)
 player2 = Player("Doug", world.startingRoom)
 player3 = Player("NotDoug", world.startingRoom)
@@ -25,11 +25,18 @@ traversalPath = []
 exitPath = []
 
 def theRealDeal():
+    newArray = []
     print(player4.currentRoom)
-
-
+    print(player4.currentRoom.id)
+    newArray = player4.currentRoom.getExits()
+    print(newArray)
+    print(graphlist)
+    unvisited = {}
+    for exit in newArray:
+        unvisited[exit] = '?'
+    graphlist[player4.currentRoom.id] = unvisited
 theRealDeal()
-    
+print(graphlist)    
 # makes the initial {0: {n/s/e/w}} rooms with ?'s for directions
 def construct_traversal():
     for i in range(len(world.rooms)):
