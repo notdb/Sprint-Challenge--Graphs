@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-from roomgraphs import roomGraph0
+from roomgraphs import roomGraph0, roomGraph1, roomGraph2, roomGraph3, roomGraph4
 from util import Stack, Queue  # These may come in handy
 import random
 
@@ -9,16 +9,17 @@ import random
 # Load world
 world = World()
 
-world.loadGraph(roomGraph0)
+world.loadGraph(roomGraph4)
 #world.printRooms()
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
 
 player = Player("Name", world.startingRoom)
 player2 = Player("Doug", world.startingRoom)
-
+player3 = Player("NotDoug", world.startingRoom)
 # FILL THIS IN
 graphlist = {}
+visited = set()
 def construct_traversal():
     for i in range(len(world.rooms)):
         player2.currentRoom = world.rooms[i]
@@ -29,7 +30,7 @@ def construct_traversal():
         for exit in listOfExits:
             unvisited[exit] = '?'
             graphlist[player2.currentRoom.id] = unvisited
-        print(graphlist)
+  
     '''
     for rooms in graphlist:
         listOfExits2 = []
@@ -47,10 +48,39 @@ def construct_traversal():
     '''
 ## need to split up the traversal because you can't change a dictionaries size during something apparently
 ## add keys and then traverse them
-
+def recursive_dft(starting_vertex):
+    print(f'{starting_vertex} aaa')
+    if len(visited) == len(graphlist):
+        return 0
+    if starting_vertex not in visited:
+        visited.add(starting_vertex)
+        print(visited)
+        if starting_vertex is None:
+            pass
+        else:
+            # fill out the '?'s with room numbers
+           # print(f'{starting_vertex} bbb')
+            # accessing {'direction':?}
+            # all we have to do is peek into the next room, get the id, set the id as the value for the ? and dip back out
+            for stub in graphlist[starting_vertex].items():
+               # print(stub[1])
+                if stub[1] == '?':
+                    player3.currentRoom = world.rooms[starting_vertex]
+                    player3.travel(stub[0])
+                   # print(f'{player3.currentRoom.id} cccc')
+                   # print(f'{graphlist[starting_vertex][stub[0]]} ddddd')
+                    graphlist[starting_vertex][stub[0]] = player3.currentRoom.id
+        for next_vert in graphlist:
+            recursive_dft(next_vert)
+    else:
+        pass
            
     
 construct_traversal()
+print('?' in graphlist[0])
+print(len(graphlist))
+recursive_dft(0)
+print(graphlist)
 #print(world.rooms)
 '''
 def bft(starting_vertex):
