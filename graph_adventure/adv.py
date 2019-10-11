@@ -9,7 +9,7 @@ import random
 # Load world
 world = World()
 
-world.loadGraph(roomGraph4)
+world.loadGraph(roomGraph1)
 #world.printRooms()
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
@@ -20,6 +20,8 @@ player3 = Player("NotDoug", world.startingRoom)
 # FILL THIS IN
 graphlist = {}
 visited = set()
+traversalPath = []
+# makes the initial {0: {n/s/e/w}} rooms with ?'s for directions
 def construct_traversal():
     for i in range(len(world.rooms)):
         player2.currentRoom = world.rooms[i]
@@ -49,12 +51,13 @@ def construct_traversal():
 ## need to split up the traversal because you can't change a dictionaries size during something apparently
 ## add keys and then traverse them
 def recursive_dft(starting_vertex):
-    print(f'{starting_vertex} aaa')
+    #print(f'{starting_vertex} aaa')
     if len(visited) == len(graphlist):
         return 0
     if starting_vertex not in visited:
         visited.add(starting_vertex)
-        print(visited)
+        #traversalPath.append(starting_vertex)
+        #print(visited)
         if starting_vertex is None:
             pass
         else:
@@ -67,6 +70,12 @@ def recursive_dft(starting_vertex):
                 if stub[1] == '?':
                     player3.currentRoom = world.rooms[starting_vertex]
                     player3.travel(stub[0])
+                    #print(stub[0])
+                    traversalPath.append(stub[0])
+                   # traversalPath.append(stub[0])
+                   # traversalPath.append(stub[0])
+                   # traversalPath.append(stub[0])
+                   # traversalPath.append(stub[0])
                    # print(f'{player3.currentRoom.id} cccc')
                    # print(f'{graphlist[starting_vertex][stub[0]]} ddddd')
                     graphlist[starting_vertex][stub[0]] = player3.currentRoom.id
@@ -74,14 +83,65 @@ def recursive_dft(starting_vertex):
             recursive_dft(next_vert)
     else:
         pass
-           
+
+def bfs(starting_vertex, destination_vertex):
     
+    finalList = []
+    newList = []
+    que = Queue()
+    visited = set()
+    que.enqueue(graphlist[starting_vertex])
+    print(graphlist[starting_vertex])
+    while que.size() > 0:
+        vertex = que.dequeue()
+        print(vertex)
+        print(f'{vertex.items()} aaa')
+        print(visited)
+        '''
+        if vertex is destination_vertex:
+            dVert = destination_vertex
+            newList.reverse()
+            for listItem in newList:
+                if dVert in graphlist[listItem]:
+                    dVert = listItem
+                    finalList.append(listItem)
+                else:
+                        dVert
+            finalList.reverse()
+            finalList.append(destination_vertex)
+            return finalList
+        '''
+        for stub in vertex.items():
+            if stub[1] == '?':
+                player3.currentRoom = world.rooms[starting_vertex]
+                player3.travel(stub[0])
+                traversalPath.append(stub[0])
+                listOfExits2 = player3.currentRoom.getExits()
+                for exit in listOfExits2:
+                    traversalPath.append(exit)
+                graphlist[starting_vertex][stub[0]] = player3.currentRoom.id
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            newList.append(starting_vertex)
+            for next_vert in graphlist:
+                que.enqueue(graphlist[next_vert])
+                print(f'{next_vert} bbb')
+
+
+    
+#print(f'{len(world.rooms)} aaaaaaa')
 construct_traversal()
-print('?' in graphlist[0])
-print(len(graphlist))
-recursive_dft(0)
-print(graphlist)
-#print(world.rooms)
+#print('?' in graphlist[0])
+#print(len(graphlist))
+#print(graphlist)
+#recursive_dft(0)
+print(bfs(0, '?'))
+#print(graphlist)
+print(traversalPath)
+#print(random.shuffle(traversalPath))
+#print(traversalPath)
+print(len(traversalPath))
+print(world.printRooms())
 '''
 def bft(starting_vertex):
         que = Queue()
@@ -96,22 +156,22 @@ def bft(starting_vertex):
                     que.enqueue(next_vert)
 '''
 #bft(0)
-'''
-traversalPath = ['n', 'n','s','s','e','w']
+
 # TRAVERSAL TEST
 visited_rooms = set()
 player.currentRoom = world.startingRoom
+print(world.startingRoom)
 visited_rooms.add(player.currentRoom)
 for move in traversalPath:
     player.travel(move)
     visited_rooms.add(player.currentRoom)
 
-if len(visited_rooms) == len(roomGraph0):
+if len(visited_rooms) == len(roomGraph1):
     print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(roomGraph0) - len(visited_rooms)} unvisited rooms")
-'''
+    print(f"{len(roomGraph1) - len(visited_rooms)} unvisited rooms")
+print(len(traversalPath))
 
 
 #######
