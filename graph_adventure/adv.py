@@ -25,6 +25,7 @@ traversalPath = []
 exitPath = []
 
 graphlist = {}
+# have to find a way to find last question mark
 def theRealDeal():
     for i in range(0,3):
         newArray = []
@@ -32,19 +33,30 @@ def theRealDeal():
         oldRoom = player4.currentRoom.id
         oldDirection = 0
         #print(player4.currentRoom)
-        print(player4.currentRoom.id)
+        #print(player4.currentRoom.id)
         newArray = player4.currentRoom.getExits()
-        print(newArray)
-        print(graphlist)
+        #print(newArray)
+        #print(graphlist)
         unvisited = {}
         for exit in newArray:
             unvisited[exit] = '?'
         graphlist[player4.currentRoom.id] = unvisited
-        #print(random.choice(newArray))
-
+        
         direction = 'n'
         oldDirection = direction
         player4.travel(direction)
+        if oldRoom is player4.currentRoom.id and len(player4.currentRoom.getExits()) is 1:
+            print('you hit a dead end')
+            if direction == 'n':
+                unvisited['s'] = oldRoom-1
+            if direction == 's':
+                unvisited['n'] = oldRoom-1
+            if direction == 'e':
+                unvisited['w'] = oldRoom-1
+            if direction == 'w':
+                unvisited['e'] = oldRoom-1
+        else:
+            traversalPath.append(direction)
         if oldRoom is not player4.currentRoom.id:
             print('true true')
             print(f'{oldRoom} ABXS')
@@ -68,7 +80,8 @@ def theRealDeal():
     
     
 theRealDeal()
-print(graphlist)    
+print(graphlist)
+print(traversalPath)
 # makes the initial {0: {n/s/e/w}} rooms with ?'s for directions
 def construct_traversal():
     for i in range(len(world.rooms)):
