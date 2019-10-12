@@ -19,22 +19,54 @@ player2 = Player("Doug", world.startingRoom)
 player3 = Player("NotDoug", world.startingRoom)
 player4 = Player("TheRealDeal", world.startingRoom)
 # FILL THIS IN
-graphlist = {}
+
 visited = set()
 traversalPath = []
 exitPath = []
 
+graphlist = {}
 def theRealDeal():
-    newArray = []
-    print(player4.currentRoom)
-    print(player4.currentRoom.id)
-    newArray = player4.currentRoom.getExits()
-    print(newArray)
-    print(graphlist)
-    unvisited = {}
-    for exit in newArray:
-        unvisited[exit] = '?'
-    graphlist[player4.currentRoom.id] = unvisited
+    for i in range(0,3):
+        newArray = []
+        newArray2 = []
+        oldRoom = player4.currentRoom.id
+        oldDirection = 0
+        #print(player4.currentRoom)
+        print(player4.currentRoom.id)
+        newArray = player4.currentRoom.getExits()
+        print(newArray)
+        print(graphlist)
+        unvisited = {}
+        for exit in newArray:
+            unvisited[exit] = '?'
+        graphlist[player4.currentRoom.id] = unvisited
+        #print(random.choice(newArray))
+
+        direction = 'n'
+        oldDirection = direction
+        player4.travel(direction)
+        if oldRoom is not player4.currentRoom.id:
+            print('true true')
+            print(f'{oldRoom} ABXS')
+            print(player4.currentRoom.id)
+            print(unvisited)
+            print(oldDirection)
+            if oldDirection == 'n':
+                graphlist[oldRoom][oldDirection] = player4.currentRoom.id
+                print(player4.currentRoom.id)
+                print(f'{graphlist} XOOO')
+                unvisited['s'] = oldRoom
+            if oldDirection == 's':
+                pass
+            if oldDirection == 'w':
+                pass
+            if oldDirection == 'e':
+                pass
+            
+            
+
+    
+    
 theRealDeal()
 print(graphlist)    
 # makes the initial {0: {n/s/e/w}} rooms with ?'s for directions
