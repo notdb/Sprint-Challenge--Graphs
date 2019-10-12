@@ -27,28 +27,33 @@ cRoom = set()
 graphlist = {}
 # have to find a way to find last question mark
 def theRealDeal():
-    for i in range(0,3):
+    for i in range(0,2):
+        print(i)
         newArray = []
         newArray2 = []
         oldRoom = player4.currentRoom.id
         oldDirection = 0
-        #print(player4.currentRoom)
-        #print(player4.currentRoom.id)
         newArray = player4.currentRoom.getExits()
-        #print(newArray)
-        #print(graphlist)
         unvisited = {}
         for exit in newArray:
             unvisited[exit] = '?'
         graphlist[player4.currentRoom.id] = unvisited
-        
+        # pick first '?' in list and go that direction
+        print(f'{unvisited} TEST')
+       # for thing in unvisited.items():
+       #     if thing[1] == '?':
+       #         direction = thing[0]
+       #         pass
         direction = 'n'
         oldDirection = direction
         player4.travel(direction)
         # deadend detection
+        # for actual deadends only
         if oldRoom == player4.currentRoom.id and len(player4.currentRoom.getExits()) == 1:
             print('you hit a dead end')
             traversalPath.append(direction)
+            print(graphlist)
+            
             # room changes and reverses to previous room with a ?
             if direction == 'n':
                 unvisited['s'] = oldRoom-1
@@ -57,6 +62,8 @@ def theRealDeal():
                     direction1 = 's'
                     player4.travel(direction1)
                     traversalPath.append(direction1)
+                    print(f'{graphlist} TESTTTTTTTT')
+            '''   
             if direction == 's':
                 unvisited['n'] = oldRoom-1
                 thingy = cRoom.pop()
@@ -64,6 +71,7 @@ def theRealDeal():
                     direction1 = 'n'
                     player4.travel(direction1)
                     traversalPath.append(direction1)
+            
             if direction == 'e':
                 unvisited['w'] = oldRoom-1
                 thingy = cRoom.pop()
@@ -71,6 +79,7 @@ def theRealDeal():
                     direction1 = 'w'
                     player4.travel(direction1)
                     traversalPath.append(direction1)
+            
             if direction == 'w':
                 unvisited['e'] = oldRoom-1
                 thingy = cRoom.pop()
@@ -78,27 +87,33 @@ def theRealDeal():
                     direction1 = 'e'
                     player4.travel(direction1)
                     traversalPath.append(direction1)
+            '''
             #print(f'{graphlist} 44435345345345')
         else:
             traversalPath.append(direction)
         # add opposite directions to rooms
         if oldRoom is not player4.currentRoom.id:
-           # print('true true')
-           # print(f'{oldRoom} ABXS')
-           # print(player4.currentRoom.id)
-           # print(unvisited)
-           # print(oldDirection)
+            print('running')
             if oldDirection == 'n':
+                print(oldRoom)
+                print(oldDirection)
                 graphlist[oldRoom][oldDirection] = player4.currentRoom.id
-               # print(player4.currentRoom.id)
-               # print(f'{graphlist} XOOO')
+                print(player4.currentRoom.id)
+                print(f'{graphlist} XOOO')
                 unvisited['s'] = oldRoom
+            '''
             if oldDirection == 's':
-                pass
+                graphlist[oldRoom][oldDirection] = player4.currentRoom.id
+                unvisited['n'] = oldRoom
+             
             if oldDirection == 'w':
-                pass
+                graphlist[oldRoom][oldDirection] = player4.currentRoom.id
+                unvisited['e'] = oldRoom
+                
             if oldDirection == 'e':
-                pass
+                graphlist[oldRoom][oldDirection] = player4.currentRoom.id
+                unvisited['w'] = oldRoom
+            '''    
             # check if previous room still has unexplored rooms
             for pair in graphlist[oldRoom]:
                if graphlist[oldRoom][pair] == '?':
@@ -111,6 +126,7 @@ def theRealDeal():
 theRealDeal()
 print(graphlist)
 print(traversalPath)
+#print(world.printRooms())
 
 # makes the initial {0: {n/s/e/w}} rooms with ?'s for directions
 def construct_traversal():
