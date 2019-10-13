@@ -50,3 +50,4 @@ add that direction to traversal list
 set up exit condition for deadend
 
 need to find out what to do when a room has no question marks
+attempting recursion until we hit a deadend
