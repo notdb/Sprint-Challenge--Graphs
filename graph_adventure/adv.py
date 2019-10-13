@@ -14,10 +14,10 @@ world.loadGraph(roomGraph2)
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
 # start at room 0, add room to dictionary with available exits pick a random direction, go to that room, add step taken to list, 
-player = Player("Name", world.startingRoom)
-player2 = Player("Doug", world.startingRoom)
-player3 = Player("NotDoug", world.startingRoom)
-player4 = Player("TheRealDeal", world.startingRoom)
+#player = Player("Name", world.startingRoom)
+#player2 = Player("Doug", world.startingRoom)
+#player3 = Player("NotDoug", world.startingRoom)
+#player4 = Player("TheRealDeal", world.startingRoom)
 # FILL THIS IN
 
 visited = set()
@@ -26,8 +26,9 @@ exitPath = []
 cRoom = set()
 graphlist = {}
 # have to find a way to find last question mark
+
 def theRealDeal():
-    for i in range(0,2):
+    for i in range(0,3):
         print(i)
         newArray = []
         newArray2 = []
@@ -44,7 +45,7 @@ def theRealDeal():
        #     if thing[1] == '?':
        #         direction = thing[0]
        #         pass
-        direction = 'n'
+        direction = 'e'
         oldDirection = direction
         player4.travel(direction)
         # deadend detection
@@ -52,18 +53,19 @@ def theRealDeal():
         if oldRoom == player4.currentRoom.id and len(player4.currentRoom.getExits()) == 1:
             print('you hit a dead end')
             traversalPath.append(direction)
-            print(graphlist)
+            print(f'{graphlist} suuuuu')
             
             # room changes and reverses to previous room with a ?
             if direction == 'n':
                 unvisited['s'] = oldRoom-1
+                print(cRoom)
                 thingy = cRoom.pop()
                 while player4.currentRoom.id is not thingy:
                     direction1 = 's'
                     player4.travel(direction1)
                     traversalPath.append(direction1)
                     print(f'{graphlist} TESTTTTTTTT')
-            '''   
+               
             if direction == 's':
                 unvisited['n'] = oldRoom-1
                 thingy = cRoom.pop()
@@ -74,6 +76,7 @@ def theRealDeal():
             
             if direction == 'e':
                 unvisited['w'] = oldRoom-1
+                print(cRoom)
                 thingy = cRoom.pop()
                 while player4.currentRoom.id is not thingy:
                     direction1 = 'w'
@@ -87,21 +90,24 @@ def theRealDeal():
                     direction1 = 'e'
                     player4.travel(direction1)
                     traversalPath.append(direction1)
-            '''
+            
             #print(f'{graphlist} 44435345345345')
         else:
             traversalPath.append(direction)
         # add opposite directions to rooms
-        if oldRoom is not player4.currentRoom.id:
+        # fix this part for going backwards
+        if oldRoom is not player4.currentRoom.id and oldRoom - player4.currentRoom.id == -1:
+            print(oldRoom)
+            print(player4.currentRoom.id)
             print('running')
             if oldDirection == 'n':
-                print(oldRoom)
-                print(oldDirection)
+               # print(oldRoom)
+               # print(oldDirection)
                 graphlist[oldRoom][oldDirection] = player4.currentRoom.id
                 print(player4.currentRoom.id)
                 print(f'{graphlist} XOOO')
                 unvisited['s'] = oldRoom
-            '''
+            
             if oldDirection == 's':
                 graphlist[oldRoom][oldDirection] = player4.currentRoom.id
                 unvisited['n'] = oldRoom
@@ -112,8 +118,10 @@ def theRealDeal():
                 
             if oldDirection == 'e':
                 graphlist[oldRoom][oldDirection] = player4.currentRoom.id
+                print(player4.currentRoom.id)
+                print(f'{graphlist} XOOO')
                 unvisited['w'] = oldRoom
-            '''    
+                 
             # check if previous room still has unexplored rooms
             for pair in graphlist[oldRoom]:
                if graphlist[oldRoom][pair] == '?':
@@ -123,9 +131,9 @@ def theRealDeal():
 
     
     
-theRealDeal()
-print(graphlist)
-print(traversalPath)
+#theRealDeal()
+#print(graphlist)
+#print(traversalPath)
 #print(world.printRooms())
 
 # makes the initial {0: {n/s/e/w}} rooms with ?'s for directions
@@ -154,6 +162,7 @@ def construct_traversal():
                     unvisited = {}
                     unvisited[exit] = '?'
                     graphlist[player2.currentRoom.id] = unvisited
+                    
     '''
 ## need to split up the traversal because you can't change a dictionaries size during something apparently
 ## add keys and then traverse them
@@ -277,6 +286,73 @@ def bft(starting_vertex):
 #print(exitPath)
 #print(len(traversalPath))
 #print(world.printRooms())
+
+player = Player("Doug", world.startingRoom)
+                    
+# depth first search until we hit a deadend
+# also add movement to traversalPath1 and qMarkRooms1 as we go
+# pick a random room
+vertices = {}
+visited2 = set()
+graphList1 = {}
+def rsdfs(starting_vertex):
+    print(player.currentRoom)
+    print(player.currentRoom.getExits())
+    # add current room id and exits to vertices
+    # example {0: {'n': '?', 's': '?', 'w': '?', 'e': '?'}}
+    tempDictOfExits = {}
+    # used for picking random direction
+    tempArrayOfExits = player.currentRoom.getExits()
+    for exit in player.currentRoom.getExits():
+        tempDictOfExits[exit] = '?'
+    vertices[player.currentRoom.id] = tempDictOfExits
+    print(vertices)
+    # pick random direction
+    print(random.choice(tempArrayOfExits))
+    direction = random.choice(tempArrayOfExits)
+    if vertices[player.currentRoom.id][direction] is '?':
+        print(vertices[player.currentRoom.id][direction])
+        print('rue')
+    # replace the question mark in the previous room with your new room id
+    # in order to do this we have to:
+        # create temp storage for the current room id
+        # travel to the next room
+        # get that room's id
+        # go back to the previous room, change the question mark in the direction we traveled to the current rooms id
+        # in the current room, change the opposite direction from the one we travel'd '?' to the previous rooms id
+    # travel that direction
+    # add it to traversalList
+    
+    '''
+    if len(visited2) == len(vertices):
+        return 0
+    if starting_vertex not in visited2:
+        visited2.add(starting_vertex)
+        if starting_vertex is None:
+            pass
+        else:
+            print(starting_vertex)
+        for next_vert in vertices[starting_vertex]:
+            rsdfs(next_vert)
+'''
+                    
+
+rsdfs(0)
+    
+def fourth_attempt():
+    traversalPath1 = []
+    qMarkRooms1 = set()
+    graphlist1 = {}
+    '''
+    while qMarkRooms is not empty:
+     rsdfs(0)
+     bft(rsdfs(0), qMarkRooms1 <- last known room)
+    '''
+    #print(traversalPath1)
+    print('hello')
+
+fourth_attempt()
+
 '''
 def bft(starting_vertex):
         que = Queue()
@@ -290,7 +366,7 @@ def bft(starting_vertex):
                 for next_vert in world.rooms[vertex].id:
                     que.enqueue(next_vert)
 '''
-#bft(0)
+
 '''
 # TRAVERSAL TEST
 visited_rooms = set()

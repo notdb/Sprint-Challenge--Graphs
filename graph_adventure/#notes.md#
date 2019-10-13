@@ -41,6 +41,7 @@ add rs dfs
 add bft
 
 when we get back from break
+
 finish checking to make sure the graphlist for the current room is set up
 
 pick random room direction
