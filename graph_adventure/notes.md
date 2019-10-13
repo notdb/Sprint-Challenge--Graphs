@@ -41,9 +41,12 @@ add rs dfs
 add bft
 
 when we get back from break
+
 finish checking to make sure the graphlist for the current room is set up
 
 pick random room direction
 move in that direction
 add that direction to traversal list
 set up exit condition for deadend
+
+need to find out what to do when a room has no question marks
