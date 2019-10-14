@@ -70,3 +70,4 @@ finish writing notes in bfs
 checking to see if we'll ever have to travel to a completely filled path while
 doing this
 check to see what happens when a completed roomid is enterd to rsdft
+finish writing bft_

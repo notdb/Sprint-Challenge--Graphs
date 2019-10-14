@@ -455,16 +455,29 @@ def bfs_path(starting_vertex, destination_vertex):
             finalList.append(destination_vertex)
             return finalList
         if vertex not in visited:
+            
             # check if destination_vertex is in current room
             # assuming yes
             # move to new room
             # append direction to traversalList1
             # add current room to que
-            # check the exits in current room
-            # if 1
-            # add vertex to visited (maybe but probably not)
-            # move in only available direction
-            # add vertex to visited
+            if destination_vertex in vertices[player.currentRoom.id].values():
+                somethingList = []
+                for test in vertices[player.currentRoom.id]:
+                    if vertices[player.currentRoom.id][test] == destination_vertex:
+                        somethingList.append(test)
+                player.travel(somethingList[0])
+                traversalList1.append(somethingList[0])
+                
+                # check the exits in current room
+                # if 1    
+            elif len(player.currentRoom.getExits()) == 1:    
+                # add vertex to visited (maybe but probably not)
+                exitsArray = player.currentRoom.getExits()
+                # move in only available direction
+                player.travel(exitsArray[0])
+                # add vertex to visited
+                
             # add direction moved to traversalList1
             # else (don't write keyword)
             # pick any direction with ?
@@ -492,9 +505,9 @@ def fourth_attempt():
     '''
     #print(traversalPath1)
 
-#fourth_attempt()
+fourth_attempt()
 rsdfs(0)
-bfs_path()
+#bfs_path()
 '''
 def bft(starting_vertex):
         que = Queue()
