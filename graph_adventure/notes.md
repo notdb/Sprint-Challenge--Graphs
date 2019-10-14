@@ -58,3 +58,11 @@ use vertices list to go back to the room before the deadend and fix everything
 
 now i think we can work on our bfs_path to send us back to a room from visited2
 on our current path
+
+so our current vertex is the players current room id, the destination vertex
+should be the last vertex we added to the set (to minimize distance traveled
+
+we'll be able to get back to our vertex it might take a little while but we
+should be able to write it as planned
+
+finish writing bfs

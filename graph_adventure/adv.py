@@ -9,7 +9,7 @@ import random
 # Load world
 world = World()
 
-world.loadGraph(roomGraph4)
+world.loadGraph(roomGraph1)
 #world.printRooms()
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
@@ -430,22 +430,34 @@ def rsdfs(starting_vertex):
 '''
                     
 
-print(rsdfs(0))
+def bfs_path(starting_vertex, destination_vertex):
+    print('BOO')
+    print(player.currentRoom.id)
+    print(visited2.pop())
+    print(vertices)
+    finalList = []
+    newList = []
+    que = Queue()
+    visited = set()
+    que.enqueue(starting_vertex)
+    while que.size() > 0:
+        vertex = que.dequeue
+    
     
 def fourth_attempt():
     traversalPath1 = []
     qMarkRooms1 = set()
     graphlist1 = {}
     '''
-    while qMarkRooms is not empty:
-     rsdfs(0)
-     bft(rsdfs(0), qMarkRooms1 <- last known room)
+    rsdfs(0)
+    while len(visited2) != 0:
+     bft(rsdfs(player.currentRoom.id),  popthefinalroom)
     '''
     #print(traversalPath1)
-    print('hello')
 
 #fourth_attempt()
-
+rsdfs(0)
+bfs_path()
 '''
 def bft(starting_vertex):
         que = Queue()
