@@ -302,7 +302,7 @@ def rsdfs(starting_vertex):
     # exit condition
     #print(starting_vertex)
     if len(player.currentRoom.getExits()) == 1 and player.currentRoom.id != 0:
-        print(player.currentRoom.id)
+        print(f'{player.currentRoom.id} ARTARSTTTTT')
         print(player.currentRoom.getExits())
         #vertices[player.currentRoom.id-1]['s'] = 1
         print(verticesList)
@@ -312,6 +312,34 @@ def rsdfs(starting_vertex):
         
         print(visited2)
         # abandon all hope all code below this line
+        # try to implement bfs_path
+        # find a ?
+        def bfs(starting_vertex, destination_vertex):
+            finalList = []
+            newList = []
+            que = Queue()
+            visited = set()
+            que.enqueue(starting_vertex)
+            while que.size() > 0:
+                vertex = que.dequeue()
+                if vertex is destination_vertex:
+                    dVert = destination_vertex
+                    newList.reverse()
+                    for listItem in newList:
+                        if dVert in vertices[listItem]:
+                            dVert = listItem
+                            finalList.append(listItem)
+                        else:
+                            dVert
+                    finalList.reverse()
+                    finalList.append(destination_vertex)
+                    return finalList
+                if vertex not in visited:
+                    visited.add(vertex)
+                    newList.append(vertex)
+                    for next_vert in vertices:
+                        que.enqueue(next_vert)
+        print(f'{bfs(player.currentRoom.id, 0)} tallyho')
         return 0
     
     print(f'{starting_vertex} ASRTARST')
