@@ -51,3 +51,7 @@ set up exit condition for deadend
 
 need to find out what to do when a room has no question marks
 attempting recursion until we hit a deadend
+
+figure out how to solve origin
+
+use vertices list to go back to the room before the deadend and fix everything

@@ -288,7 +288,7 @@ def bft(starting_vertex):
 #print(world.printRooms())
 
 player = Player("Doug", world.startingRoom)
-                    
+print(world.printRooms())                    
 # depth first search until we hit a deadend
 # also add movement to traversalPath1 and qMarkRooms1 as we go
 # pick a random room
@@ -296,24 +296,58 @@ vertices = {}
 visited2 = set()
 graphList1 = {}
 traversalList1 = []
+verticesList = []
+#and len(vertices) != 0 len(player.currentRoom.getExits()) == 1 and
 def rsdfs(starting_vertex):
-    print(player.currentRoom)
-    print(player.currentRoom.getExits())
+    # exit condition
+    #print(starting_vertex)
+    if len(player.currentRoom.getExits()) == 1 and player.currentRoom.id != 0:
+        print(player.currentRoom.id)
+        print(player.currentRoom.getExits())
+        #vertices[player.currentRoom.id-1]['s'] = 1
+        print(verticesList)
+        print(len(verticesList))
+        print(verticesList[len(verticesList)-1])
+        print(traversalList1)
+        
+        print(visited2)
+        return 0
+    
+    print(f'{starting_vertex} ASRTARST')
+    #print(player.currentRoom)
+    print(len(player.currentRoom.getExits()))
+    # two situations: one where we have never been to a room before and another where we've been to a partially filled out room
+    
+    
+    # fresh room (never been visited before)
+    if player.currentRoom.id not in visited2:
     # add current room id and exits to vertices
     # example {0: {'n': '?', 's': '?', 'w': '?', 'e': '?'}}
-    tempDictOfExits = {}
-    # used for picking random direction
-    tempArrayOfExits = player.currentRoom.getExits()
-    for exit in player.currentRoom.getExits():
-        tempDictOfExits[exit] = '?'
-    vertices[player.currentRoom.id] = tempDictOfExits
-    print(vertices)
-    # pick random direction
-    # print(random.choice(tempArrayOfExits))
-    direction = random.choice(tempArrayOfExits)
-    #print(direction)
-    # rewrite to say if room has a question mark than pick a direction
-    if vertices[player.currentRoom.id][direction] is '?':
+        #print('hello')
+        # used for picking random direction
+        tempDictOfExits = {} 
+        tempArrayOfExits = player.currentRoom.getExits()
+        for exit in player.currentRoom.getExits():
+            tempDictOfExits[exit] = '?'
+        vertices[player.currentRoom.id] = tempDictOfExits
+        graphList1[player.currentRoom.id] = tempDictOfExits
+        #print(vertices)
+    
+    
+        # pick random direction
+        # print(random.choice(tempArrayOfExits))
+    
+        direction = random.choice(tempArrayOfExits)
+        #print(direction)
+    #partially filled out room    
+    else:
+        freshList = []
+        for test in vertices[player.currentRoom.id]:
+            if vertices[player.currentRoom.id][test] == '?':
+                freshList.append(test)
+        direction = random.choice(freshList)
+        # rewrite to say if room has a question mark than pick a direction
+    if vertices[player.currentRoom.id][direction] == '?':
        # print(vertices[player.currentRoom.id][direction])
        # print('rue')
     # replace the question mark in the previous room with your new room id
@@ -324,14 +358,19 @@ def rsdfs(starting_vertex):
         # go back to the previous room, change the question mark in the direction we traveled to the current rooms id
         # in the current room, change the opposite direction from the one we travel'd '?' to the previous rooms id
         tempStorageForPreviousRoom = player.currentRoom.id
+        #if len(player.currentRoom.getExits()) == 1 and player.currentRoom.id != 0:
+        #    print('TTTT')
+        #    return 0
         #print(direction)
         # print(tempStorageForPreviousRoom)
         player.travel(direction)
         traversalList1.append(direction)
+        verticesList.append(player.currentRoom.id)
         # print(player.currentRoom.id)
         # set previous rooms direction key to current room id
         vertices[tempStorageForPreviousRoom][direction] = player.currentRoom.id
-        print(vertices)
+        graphList1[tempStorageForPreviousRoom][direction] = player.currentRoom.id
+        #print(vertices)
         # add current room id and exits to vertices
         # example {0: {'n': '?', 's': '?', 'w': '?', 'e': '?'}}
         tempDictOfExits = {}
@@ -340,26 +379,43 @@ def rsdfs(starting_vertex):
         for exit in player.currentRoom.getExits():
             tempDictOfExits[exit] = '?'
         vertices[player.currentRoom.id] = tempDictOfExits
+        graphList1[player.currentRoom.id] = tempDictOfExits
         print(vertices)
         # grab opposite direction of one travelled and put previous rooms id there
         if direction == 'n':
             vertices[player.currentRoom.id]['s'] = tempStorageForPreviousRoom
+            graphList1[player.currentRoom.id]['s'] = tempStorageForPreviousRoom
+            print('hoot hoot')
         if direction == 's':
             vertices[player.currentRoom.id]['n'] = tempStorageForPreviousRoom
+            graphList1[player.currentRoom.id]['n'] = tempStorageForPreviousRoom
         if direction == 'e':
             vertices[player.currentRoom.id]['w'] = tempStorageForPreviousRoom
+            graphList1[player.currentRoom.id]['w'] = tempStorageForPreviousRoom
         if direction == 'w':
             vertices[player.currentRoom.id]['e'] = tempStorageForPreviousRoom
+            graphList1[player.currentRoom.id]['e'] = tempStorageForPreviousRoom
         print(vertices)
-        print(traversalList1)
+        print(f'{traversalList1} FFFFFF')
     # travel that direction
     # add it to traversalList
         # after moving, check previous room to see if any of it's exits contains a '?', if true, add that room to the set
         # else, remove it from the set
         # the deadend is the exit condition for the recursion
         # we shouldn't need to check for '?'s because the bfs will do that, and if the list is empty we know we're done
-        print('?' in vertices[tempStorageForPreviousRoom].keys())
-    
+        if 0 in vertices:
+            visited2.add(tempStorageForPreviousRoom)
+        if '?' in vertices[tempStorageForPreviousRoom].values():
+            visited2.add(tempStorageForPreviousRoom)
+        else:
+            visited2.remove(tempStorageForPreviousRoom)
+        print(f'{tempStorageForPreviousRoom} zzzzZZ')
+        print(f'{player.currentRoom.id} YYYYYY')
+        print(graphList1)
+        for next_vert in verticesList:
+            rsdfs(next_vert)
+    else:
+        pass
     '''
     if len(visited2) == len(vertices):
         return 0
@@ -374,7 +430,7 @@ def rsdfs(starting_vertex):
 '''
                     
 
-rsdfs(0)
+print(rsdfs(0))
     
 def fourth_attempt():
     traversalPath1 = []
@@ -388,7 +444,7 @@ def fourth_attempt():
     #print(traversalPath1)
     print('hello')
 
-fourth_attempt()
+#fourth_attempt()
 
 '''
 def bft(starting_vertex):
