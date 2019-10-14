@@ -311,6 +311,7 @@ def rsdfs(starting_vertex):
         print(traversalList1)
         
         print(visited2)
+        # abandon all hope all code below this line
         return 0
     
     print(f'{starting_vertex} ASRTARST')
@@ -557,9 +558,9 @@ def fourth_attempt():
         
     return print(traversalList1)
 
-fourth_attempt()
+#fourth_attempt()
 print(' RRERISTNIERSTNEIRST')
-#rsdfs(0)
+rsdfs(0)
 #bfs_path()
 '''
 def bft(starting_vertex):
