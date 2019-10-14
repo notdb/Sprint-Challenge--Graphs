@@ -67,3 +67,6 @@ should be able to write it as planned
 
 finish writing bfs
 finish writing notes in bfs
+checking to see if we'll ever have to travel to a completely filled path while
+doing this
+check to see what happens when a completed roomid is enterd to rsdft

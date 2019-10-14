@@ -455,14 +455,30 @@ def bfs_path(starting_vertex, destination_vertex):
             finalList.append(destination_vertex)
             return finalList
         if vertex not in visited:
+            # check if destination_vertex is in current room
+            # assuming yes
+            # move to new room
+            # append direction to traversalList1
+            # add current room to que
             # check the exits in current room
             # if 1
             # add vertex to visited (maybe but probably not)
             # move in only available direction
             # add vertex to visited
             # add direction moved to traversalList1
-            # else 
+            # else (don't write keyword)
             # pick any direction with ?
+            # add vertex to visited maybe but probably not)
+            # add vertex to holding variable (tempStorage)
+            # travel to new direction
+            # append direction to traversalList1
+            # append current room id to verticesList
+            # set previous rooms direction key to current room id
+            # grab opposite direction of one travelled and put previous rooms id there
+            # check if the previous room has no question marks
+            # if yes, remove from visited2
+            # add current rooom to que
+            
     
     
 def fourth_attempt():
