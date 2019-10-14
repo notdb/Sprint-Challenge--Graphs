@@ -433,7 +433,8 @@ def rsdfs(starting_vertex):
 def bfs_path(starting_vertex, destination_vertex):
     print('BOO')
     print(player.currentRoom.id)
-    print(visited2.pop())
+    print(destination_vertex)
+    #print(visited2.pop())
     print(vertices)
     finalList = []
     newList = []
@@ -453,6 +454,7 @@ def bfs_path(starting_vertex, destination_vertex):
                     dVert
             finalList.reverse()
             finalList.append(destination_vertex)
+            print(f'{finalList} this is the final list')
             return finalList
         if vertex not in visited:
             
@@ -468,75 +470,96 @@ def bfs_path(starting_vertex, destination_vertex):
                         somethingList.append(test)
                 player.travel(somethingList[0])
                 traversalList1.append(somethingList[0])
-                
+                print('DEST IS EXIT')
                 # check the exits in current room
                 # if 1    
             elif len(player.currentRoom.getExits()) == 1:    
                 # add vertex to visited (maybe but probably not)
                 exitsArray = player.currentRoom.getExits()
                 # move in only available direction
+                print(exitsArray)
                 player.travel(exitsArray[0])
                 # add vertex to visited
                 visited.add(vertex)
+                print(visited)
                 # add direction moved to traversalList1
                 traversalList1.append(exitsArray[0])
-            else:
+                print(player.currentRoom.id)
+                print('EXIT IS ONE')
+            #else:
                 # else (don't write keyword)
                 # pick any direction with ?
-                freshList = []
-                for test in vertices[player.currentRoom.id]:
-                    if vertices[player.currentRoom.id][test] == '?':
-                        freshList.append(test)
-                direction = random.choice(freshList)
+            freshList2 = []
+            for test in vertices[player.currentRoom.id]:
+                if vertices[player.currentRoom.id][test] == '?':
+                    freshList2.append(test)
+            print(f'{freshList2} FRESHLIST BRBY')
+            direction = random.choice(freshList2[0])
+            print(direction)
                 # add vertex to visited maybe but probably not)
                 # add vertex to holding variable (tempStorage)
-                tempStorageDirection = direction
-                tempStoragePreviousRoom = player.currentRoom.id
+            tempStorageDirection = direction
+            tempStoragePreviousRoom = player.currentRoom.id
                 # travel to new direction
-                player.travel(direction)
+            player.travel(direction)
                 # append direction to traversalList1
-                traversalList1.append(direction)
+            traversalList1.append(direction)
                 # append current room id to verticesList
-                verticesList.append(player.currentRoom.id)
+            verticesList.append(player.currentRoom.id)
                 # if this doesn't work, make a new verticesList and put it outside the function
                 # set previous rooms direction key to current room id
-                vertices[tempStoragePreviousRoom][direction] = player.currentRoom.id
-                graphList1[tempStoragePreviousRoom][direction] = player.currentRoom.id
+            vertices[tempStoragePreviousRoom][direction] = player.currentRoom.id
+            graphList1[tempStoragePreviousRoom][direction] = player.currentRoom.id
                 # grab opposite direction of one travelled and put previous rooms id there
-                if direction == 'n':
-                    vertices[player.currentRoom.id]['s'] = tempStoragePreviousRoom
-                    graphList1[player.currentRoom.id]['s'] = tempStoragePreviousRoom
-                if direction == 's':
-                    vertices[player.currentRoom.id]['n'] = tempStoragePreviousRoom
-                    graphList1[player.currentRoom.id]['n'] = tempStoragePreviousRoom
-                if direction == 'e':
-                    vertices[player.currentRoom.id]['w'] = tempStoragePreviousRoom
-                    graphList1[player.currentRoom.id]['w'] = tempStoragePreviousRoom
-                if direction == 'w':
-                    vertices[player.currentRoom.id]['e'] = tempStoragePreviousRoom
-                    graphList1[player.currentRoom.id]['e'] = tempStoragePreviousRoom
+            print(visited2)
+            print(verticesList)
+            print('PENERIC PRINT STATEMENT')
+            print(vertices)
+            if direction == 'n':
+                vertices[player.currentRoom.id]['s'] = tempStoragePreviousRoom
+                graphList1[player.currentRoom.id]['s'] = tempStoragePreviousRoom
+            if direction == 's':
+                vertices[player.currentRoom.id]['n'] = tempStoragePreviousRoom
+                graphList1[player.currentRoom.id]['n'] = tempStoragePreviousRoom
+            if direction == 'e':
+                vertices[player.currentRoom.id]['w'] = tempStoragePreviousRoom
+                graphList1[player.currentRoom.id]['w'] = tempStoragePreviousRoom
+            if direction == 'w':
+                vertices[player.currentRoom.id]['e'] = tempStoragePreviousRoom
+                graphList1[player.currentRoom.id]['e'] = tempStoragePreviousRoom
                 # check if the previous room has no question marks
-                if '?' not in vertices[tempStoragePreviousRoom].values():
-                    visited2.remove(tempStoragePreviousRoom)
+            print(vertices[tempStoragePreviousRoom].values())
+            if '?' not in vertices[tempStoragePreviousRoom].values():
+                print('YES')
+                testSet = set()
+                print(len(testSet))
+                print(tempStoragePreviousRoom)
+                print(player.currentRoom.id)
+                visited2.remove(tempStoragePreviousRoom)
+                print(visited2)
                     # if yes, remove from visited2
-                visited.add(player.currentRoom.id)
+            visited.add(player.currentRoom.id)
                 # add current rooom to que
             
     
     
 def fourth_attempt():
-    traversalPath1 = []
-    qMarkRooms1 = set()
-    graphlist1 = {}
-    '''
+    #traversalPath1 = []
+    #qMarkRooms1 = set()
+    #graphlist1 = {}
+    
     rsdfs(0)
-    while len(visited2) != 0:
-     bft(rsdfs(player.currentRoom.id),  popthefinalroom)
-    '''
-    #print(traversalPath1)
+    print(f'{traversalList1} beginning loop')
+    #while len(visited2) != 0:
+    print(f'{visited2} WHEEOROR')
+    print(player.currentRoom.id)
+    bfs_path(8,0)
+        
+    return print(traversalList1)
 
 fourth_attempt()
-rsdfs(0)
+print(' RRERISTNIERSTNEIRST')
+#rsdfs(0)
 #bfs_path()
 '''
 def bft(starting_vertex):
@@ -552,23 +575,24 @@ def bft(starting_vertex):
                     que.enqueue(next_vert)
 '''
 
-'''
+
 # TRAVERSAL TEST
 visited_rooms = set()
 player.currentRoom = world.startingRoom
 print(world.startingRoom)
 visited_rooms.add(player.currentRoom)
-for move in traversalPath:
+for move in traversalList1:
     player.travel(move)
     visited_rooms.add(player.currentRoom)
 
-if len(visited_rooms) == len(roomGraph3):
-    print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
+if len(visited_rooms) == len(roomGraph1):
+    print(f"TESTS PASSED: {len(traversalList1)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(roomGraph3) - len(visited_rooms)} unvisited rooms")
-print(len(traversalPath))
-'''
+    print(f"{len(roomGraph1) - len(visited_rooms)} unvisited rooms")
+print(len(traversalList1))
+print(traversalList1)
+
 
 #######
 # UNCOMMENT TO WALK AROUND
