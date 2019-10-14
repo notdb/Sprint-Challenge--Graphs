@@ -477,20 +477,50 @@ def bfs_path(starting_vertex, destination_vertex):
                 # move in only available direction
                 player.travel(exitsArray[0])
                 # add vertex to visited
-                
-            # add direction moved to traversalList1
-            # else (don't write keyword)
-            # pick any direction with ?
-            # add vertex to visited maybe but probably not)
-            # add vertex to holding variable (tempStorage)
-            # travel to new direction
-            # append direction to traversalList1
-            # append current room id to verticesList
-            # set previous rooms direction key to current room id
-            # grab opposite direction of one travelled and put previous rooms id there
-            # check if the previous room has no question marks
-            # if yes, remove from visited2
-            # add current rooom to que
+                visited.add(vertex)
+                # add direction moved to traversalList1
+                traversalList1.append(exitsArray[0])
+            else:
+                # else (don't write keyword)
+                # pick any direction with ?
+                freshList = []
+                for test in vertices[player.currentRoom.id]:
+                    if vertices[player.currentRoom.id][test] == '?':
+                        freshList.append(test)
+                direction = random.choice(freshList)
+                # add vertex to visited maybe but probably not)
+                # add vertex to holding variable (tempStorage)
+                tempStorageDirection = direction
+                tempStoragePreviousRoom = player.currentRoom.id
+                # travel to new direction
+                player.travel(direction)
+                # append direction to traversalList1
+                traversalList1.append(direction)
+                # append current room id to verticesList
+                verticesList.append(player.currentRoom.id)
+                # if this doesn't work, make a new verticesList and put it outside the function
+                # set previous rooms direction key to current room id
+                vertices[tempStoragePreviousRoom][direction] = player.currentRoom.id
+                graphList1[tempStoragePreviousRoom][direction] = player.currentRoom.id
+                # grab opposite direction of one travelled and put previous rooms id there
+                if direction == 'n':
+                    vertices[player.currentRoom.id]['s'] = tempStoragePreviousRoom
+                    graphList1[player.currentRoom.id]['s'] = tempStoragePreviousRoom
+                if direction == 's':
+                    vertices[player.currentRoom.id]['n'] = tempStoragePreviousRoom
+                    graphList1[player.currentRoom.id]['n'] = tempStoragePreviousRoom
+                if direction == 'e':
+                    vertices[player.currentRoom.id]['w'] = tempStoragePreviousRoom
+                    graphList1[player.currentRoom.id]['w'] = tempStoragePreviousRoom
+                if direction == 'w':
+                    vertices[player.currentRoom.id]['e'] = tempStoragePreviousRoom
+                    graphList1[player.currentRoom.id]['e'] = tempStoragePreviousRoom
+                # check if the previous room has no question marks
+                if '?' not in vertices[tempStoragePreviousRoom].values():
+                    visited2.remove(tempStoragePreviousRoom)
+                    # if yes, remove from visited2
+                visited.add(player.currentRoom.id)
+                # add current rooom to que
             
     
     
