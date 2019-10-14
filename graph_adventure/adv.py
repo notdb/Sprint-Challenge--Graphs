@@ -9,7 +9,7 @@ import random
 # Load world
 world = World()
 
-world.loadGraph(roomGraph2)
+world.loadGraph(roomGraph4)
 #world.printRooms()
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
