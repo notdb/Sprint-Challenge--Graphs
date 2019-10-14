@@ -66,3 +66,4 @@ we'll be able to get back to our vertex it might take a little while but we
 should be able to write it as planned
 
 finish writing bfs
+finish writing notes in bfs

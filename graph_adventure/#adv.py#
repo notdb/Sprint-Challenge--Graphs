@@ -461,8 +461,11 @@ def bfs_path(starting_vertex, destination_vertex):
             # move in only available direction
             # add vertex to visited
             # add direction moved to traversalList1
-            # else 
+            # else (don't write keyword)
             # pick any direction with ?
+            # add vertex to visited maybe but probably not)
+            # add vertex to holding variable (tempStora
+            # 
     
     
 def fourth_attempt():
