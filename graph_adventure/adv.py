@@ -3,7 +3,7 @@ from player import Player
 from world import World
 
 import random
-
+# test
 # Load world
 world = World()
 
