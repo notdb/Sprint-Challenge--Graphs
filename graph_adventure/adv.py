@@ -9,7 +9,7 @@ import random
 # Load world
 world = World()
 
-world.loadGraph(roomGraph1)
+world.loadGraph(roomGraph0)
 #world.printRooms()
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
@@ -286,7 +286,7 @@ def bft(starting_vertex):
 #print(exitPath)
 #print(len(traversalPath))
 #print(world.printRooms())
-
+print('eff')
 player = Player("Doug", world.startingRoom)
 print(world.printRooms())                    
 # depth first search until we hit a deadend
@@ -614,11 +614,11 @@ for move in traversalList1:
     player.travel(move)
     visited_rooms.add(player.currentRoom)
 
-if len(visited_rooms) == len(roomGraph1):
+if len(visited_rooms) == len(roomGraph0):
     print(f"TESTS PASSED: {len(traversalList1)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(roomGraph1) - len(visited_rooms)} unvisited rooms")
+    print(f"{len(roomGraph0) - len(visited_rooms)} unvisited rooms")
 print(len(traversalList1))
 print(traversalList1)
 
