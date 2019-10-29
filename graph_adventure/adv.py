@@ -21,7 +21,17 @@ traversalList1 = []
 verticesList = []
 
 def big_traverse(starting_vertex):
-    pass
+    questack = Stack()
+    visited = set()
+    questack.push(starting_vertex)
+    while questack.size() > 0:
+        vertex = questack.pop()
+        if vertex not in visited:
+            visited.add(vertex)
+            print(vertex)
+            for next_vert in vertices[vertex]:
+                questack.push(next_vert)
+
 
 # FILL THIS IN
 traversalPath = ['n', 's']
@@ -35,11 +45,11 @@ for move in traversalPath:
     player.travel(move)
     visited_rooms.add(player.currentRoom)
 
-if len(visited_rooms) == len(roomGraph):
+if len(visited_rooms) == len(roomGraph0):
     print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(roomGraph) - len(visited_rooms)} unvisited rooms")
+    print(f"{len(roomGraph0) - len(visited_rooms)} unvisited rooms")
 
 
 
