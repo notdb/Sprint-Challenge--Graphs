@@ -26,13 +26,23 @@ def big_traverse(starting_vertex):
     questack.push(starting_vertex)
     while questack.size() > 0:
         vertex = questack.pop()
+        if player.currentRoom.id not in visited2:
+            tempDictOfExits = {}
+            tempArrayOfExits = player.currentRoom.getExits()
+            for exit in player.currentRoom.getExits():
+                tempDictOfExits[exit] = '?'
+        vertices[player.currentRoom.id] = tempDictOfExits
+        graphList1[player.currentRoom.id] = tempDictOfExits
         if vertex not in visited:
             visited.add(vertex)
-            print(vertex)
+            print(f'{vertex} hello')
             for next_vert in vertices[vertex]:
                 questack.push(next_vert)
 
+    print('hello')
 
+print(player.currentRoom.getExits())
+big_traverse(0)
 # FILL THIS IN
 traversalPath = ['n', 's']
 
