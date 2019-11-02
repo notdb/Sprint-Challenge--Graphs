@@ -9,7 +9,7 @@ import random
 # Load world
 world = World()
 
-world.loadGraph(roomGraph1)
+world.loadGraph(roomGraph0)
 #world.printRooms()
 #print(world.rooms[1].getExits())
 #print(world.roomGrid)
@@ -286,7 +286,7 @@ def bft(starting_vertex):
 #print(exitPath)
 #print(len(traversalPath))
 #print(world.printRooms())
-
+print('eff')
 player = Player("Doug", world.startingRoom)
 print(world.printRooms())                    
 # depth first search until we hit a deadend
@@ -302,7 +302,7 @@ def rsdfs(starting_vertex):
     # exit condition
     #print(starting_vertex)
     if len(player.currentRoom.getExits()) == 1 and player.currentRoom.id != 0:
-        print(player.currentRoom.id)
+        print(f'{player.currentRoom.id} ARTARSTTTTT')
         print(player.currentRoom.getExits())
         #vertices[player.currentRoom.id-1]['s'] = 1
         print(verticesList)
@@ -311,6 +311,35 @@ def rsdfs(starting_vertex):
         print(traversalList1)
         
         print(visited2)
+        # abandon all hope all code below this line
+        # try to implement bfs_path
+        # find a ?
+        def bfs(starting_vertex, destination_vertex):
+            finalList = []
+            newList = []
+            que = Queue()
+            visited = set()
+            que.enqueue(starting_vertex)
+            while que.size() > 0:
+                vertex = que.dequeue()
+                if vertex is destination_vertex:
+                    dVert = destination_vertex
+                    newList.reverse()
+                    for listItem in newList:
+                        if dVert in vertices[listItem]:
+                            dVert = listItem
+                            finalList.append(listItem)
+                        else:
+                            dVert
+                    finalList.reverse()
+                    finalList.append(destination_vertex)
+                    return finalList
+                if vertex not in visited:
+                    visited.add(vertex)
+                    newList.append(vertex)
+                    for next_vert in vertices:
+                        que.enqueue(next_vert)
+        print(f'{bfs(player.currentRoom.id, 0)} tallyho')
         return 0
     
     print(f'{starting_vertex} ASRTARST')
@@ -557,9 +586,9 @@ def fourth_attempt():
         
     return print(traversalList1)
 
-fourth_attempt()
+#fourth_attempt()
 print(' RRERISTNIERSTNEIRST')
-#rsdfs(0)
+rsdfs(0)
 #bfs_path()
 '''
 def bft(starting_vertex):
@@ -585,11 +614,11 @@ for move in traversalList1:
     player.travel(move)
     visited_rooms.add(player.currentRoom)
 
-if len(visited_rooms) == len(roomGraph1):
+if len(visited_rooms) == len(roomGraph0):
     print(f"TESTS PASSED: {len(traversalList1)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(roomGraph1) - len(visited_rooms)} unvisited rooms")
+    print(f"{len(roomGraph0) - len(visited_rooms)} unvisited rooms")
 print(len(traversalList1))
 print(traversalList1)
 
